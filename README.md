@@ -1,8 +1,44 @@
 # K2/icefall/sherpa installation
 
-install Cuda11.3 
-`https://gist.github.com/Mahedi-61/2a2f1579d4271717d421065168ce6a73`
+### Prerequisite:
+- Please install conda or any other environment management system 
+- Create new environtment with python 3.8 `conda create -n k2 python=3.8`
 
+### Install GCC
+- Check this link for which GCC should be installed before installing Cuda
+https://stackoverflow.com/questions/6622454/cuda-incompatible-with-my-gcc-version
+
+- This tutorial also was helpful to install gcc and set the correct version
+https://linuxize.com/post/how-to-install-gcc-on-ubuntu-20-04/
+
+- check that you installed the required gcc version by running `gcc --version`
+
+
+### install Cuda toolkit and Cudnn
+- I tried cuda toolkit 10.2, gcc 6.3 for older Ubuntu 18.04, and Cuda 11.3, gcc 9.4 for Ubuntu 20 but others might work as well.
+- To install cuda toolkit and Cudnn follow the instruction here https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#download
+- I followed the steps below to install cuda 11.3 toolkit
+`https://gist.github.com/Mahedi-61/2a2f1579d4271717d421065168ce6a73`
+- Make sure to point to the correct cuda directory by running the commands below:
+```
+export CUDA_HOME=/usr/local/cuda-11.3  # currently links to /opt/NVIDIA/cuda-10,>
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-11.3/lib64:/usr/local/cuda-11.3/extras/CUPTI/lib64
+export PATH="$CUDA_HOME/bin:$PATH"
+```
+- To make sure cuda you are pointing to the correct cuda run `nvcc -V`, it should print
+```
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2021 NVIDIA Corporation
+Built on Mon_May__3_19:15:13_PDT_2021
+Cuda compilation tools, release 11.3, V11.3.109
+Build cuda_11.3.r11.3/compiler.29920130_0
+```
+
+###
+
+
+
+Note
 sherpa installation steps:
 1- export k2 and kaldifeat path
 ```
