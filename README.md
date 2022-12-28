@@ -1,6 +1,7 @@
 # K2/icefall/sherpa installation
 
-
+install Cuda11.3 
+`https://gist.github.com/Mahedi-61/2a2f1579d4271717d421065168ce6a73`
 
 sherpa installation steps:
 1- export k2 and kaldifeat path
