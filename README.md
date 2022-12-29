@@ -113,7 +113,8 @@ Versions of relevant libraries:
 [conda] torchaudio                0.12.0+cu113             pypi_0    pypi
 [conda] torchvision               0.13.0+cu113             pypi_0    pypi
 ```
-
+I installed the following version:
+`conda install pytorch==1.12.0 torchvision==0.13.0 torchaudio==0.12.0 cudatoolkit=11.3 -c pytorch`
 
 
 ### install lhotse
@@ -153,7 +154,7 @@ K2_ROOT=/speech/toolkits/k2
 export PYTHONPATH=$K2_ROOT/k2/python:$PYTHONPATH
 export PYTHONPATH=$K2_ROOT/build_debug/lib:$PYTHONPATH
 ```
-- to check k2 installation run `python -m k2.version` 
+- to check k2 installed succesfully run `python -m k2.version` 
 
 ### Install kaldifeat
 - clone the repo
@@ -181,6 +182,7 @@ kfeat=/speech/toolkits/kaldifeat
 export PYTHONPATH=$kfeat/kaldifeat/python:$PYTHONPATH
 export PYTHONPATH=$kfeat/build/lib:$PYTHONPATH
 ```
+- to check kaldifeat installed succesfully run `python3 -c "import kaldifeat; print(kaldifeat.__version__)"` 
 
 ### Install sherpa
 
