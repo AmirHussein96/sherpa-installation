@@ -3,6 +3,7 @@
 ### Prerequisite:
 - Please install conda or any other environment management system 
 - Create new environtment with python 3.8 `conda create -n k2 python=3.8`
+- Install cmake using pip, in my case I installed `pip install cmake==3.18`
 
 ### Install GCC
 - Check this link for which GCC should be installed before installing Cuda
@@ -123,7 +124,10 @@ I installed the following version:
 
 
 ### Install k2
-- clone the repo
+- Refer to the documentation for more details [https://kaldifeat.readthedocs.io/en/latest/installation.html#install-kaldifeat-from-source](https://k2-fsa.github.io/k2/installation/index.html)
+- You can also check the issues that I raised on github https://github.com/k2-fsa/k2/issues/1124
+- Steps I followed:
+1. clone the repo
 ```
 git clone https://github.com/k2-fsa/k2.git
 cd k2
@@ -131,12 +135,12 @@ mkdir build_debug
 cd build_debug
 ```
 
-- Define pointers to cuda
+2. Define pointers to cuda
 ```
 CUDNN_LIBRARY_PATH=/usr/local/cuda-11.3/lib64
 CUDNN_INCLUDE_PATH=/usr/local/cuda-11.3/include
 ```
-- run cmake
+3. run cmake
 ```
 cmake\
  -DCMAKE_BUILD_TYPE=Debug \
@@ -146,25 +150,28 @@ cmake\
  -DCUDNN_INCLUDE_PATH=$CUDNN_INCLUDE_PATH \
  ..
 ```
-- run `make -j8`
-- add k2 to python path
+4. run `make -j8`
+5. add k2 to python path
 
 ```
 K2_ROOT=/speech/toolkits/k2
 export PYTHONPATH=$K2_ROOT/k2/python:$PYTHONPATH
 export PYTHONPATH=$K2_ROOT/build_debug/lib:$PYTHONPATH
 ```
-- to check k2 installed succesfully run `python -m k2.version` 
+6. to check k2 installed succesfully run `python -m k2.version` 
 
 ### Install kaldifeat
-- clone the repo
+- Refer to the documentation for more details https://kaldifeat.readthedocs.io/en/latest/installation.html#install-kaldifeat-from-source
+- You can also check the issues that I raised on github https://github.com/csukuangfj/kaldifeat/issues/59
+- Steps I followed:
+1. clone the repo
 ```
 git clone https://github.com/csukuangfj/kaldifeat
 cd kaldifeat
 mkdir build
 cd build
 ```
-- run cmake
+2. run cmake
 ```
 cmake\
  -DCMAKE_BUILD_TYPE=Debug \
@@ -175,15 +182,17 @@ cmake\
  ..
  ```
  
-- run `make -j8`
-- add kaldifeat to python path
+3. run `make -j8`
+4. add kaldifeat to python path
 ```
 kfeat=/speech/toolkits/kaldifeat
 export PYTHONPATH=$kfeat/kaldifeat/python:$PYTHONPATH
 export PYTHONPATH=$kfeat/build/lib:$PYTHONPATH
 ```
-- to check kaldifeat installed succesfully run `python3 -c "import kaldifeat; print(kaldifeat.__version__)"` 
+5. to check kaldifeat installed succesfully run `python3 -c "import kaldifeat; print(kaldifeat.__version__)"` 
 
+**Note:**
+- Make sure that you either 
 ### Install sherpa
 
 sherpa installation steps:
