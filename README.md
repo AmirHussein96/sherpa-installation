@@ -192,21 +192,37 @@ export PYTHONPATH=$kfeat/build/lib:$PYTHONPATH
 5. to check kaldifeat installed succesfully run `python3 -c "import kaldifeat; print(kaldifeat.__version__)"` 
 
 **Note:**
-- Make sure that you either 
-### Install sherpa
+- Make sure you got kaldilm 1.11 not 1.14 since this also caused issues https://github.com/k2-fsa/icefall/issues/794
 
-sherpa installation steps:
-1- export k2 and kaldifeat path
+### Install sherpa
+- Refer to the documentation for more details [https://kaldifeat.readthedocs.io/en/latest/installation.html#install-kaldifeat-from-source](https://k2-fsa.github.io/sherpa/python/installation/from-source.html#install-sherpa)
+- You can also check the issues that I raised on github [https://github.com/csukuangfj/kaldifeat/issues/59](https://github.com/k2-fsa/sherpa/issues/258) and https://github.com/k2-fsa/sherpa/issues/257
+- Steps I followed:
+1. clone the repo
+```
+git clone https://github.com/k2-fsa/sherpa
+cd sherpa
+```
+2. export k2 and kaldifeat path
 ```
 export K2_INSTALL_PREFIX=/speech/toolkits/k2/build_debug
 export KALDIFEAT_INSTALL_PREFIX=/speech/toolkits/kaldifeat/build
 ```
+- **Method 1**
+3. pip install -r ./requirements.txt
+4. **Note** Make sure that you either installed kaldifeat with pip or from source but not both. If you have both remove the one installed with pip `pip uninstall kaldifeat`
+5. python3 setup.py install --verbose
+6. To check the installation run `python3 -c "import sherpa; print(sherpa.__version__)"`
+7. Follow the steps here to run the server with a pretrained model https://k2-fsa.github.io/sherpa/python/streaming_asr/conformer/conformer_rnnt_for_English/index.html
 
-2- Specify cudnn path and run cmake
+
+- **Method 2** I tried this method which also worked but have not used it with a model
+9. Specify cudnn path and run cmake
 
 ```
 CUDNN_LIBRARY_PATH=/usr/local/cuda-11.3/lib64
 CUDNN_INCLUDE_PATH=/usr/local/cuda-11.3/include
+```
 
 cmake  -DCMAKE_BUILD_TYPE=Release  -DCMAKE_INSTALL_PREFIX=$HOME/software/sherpa  
 -DCMAKE_CUDA_COMPILER=$(which nvcc)  -DPYTHON_EXECUTABLE=$(which python)  -DCUDNN_LIBRARY_PATH=$CUDNN_LIBRARY_PATH/libcudnn.so  -DCUDNN_INCLUDE_PATH=$CUDNN_INCLUDE_PATH  ..
@@ -215,7 +231,7 @@ make -j6 install/strip
 
 export PATH=$HOME/software/sherpa/bin:$PATH
 ```
-3- To check the installation run 
+4. To check the installation run 
 `sherpa-version`
 
 The output will be somethig similar to below
