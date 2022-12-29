@@ -216,25 +216,29 @@ export KALDIFEAT_INSTALL_PREFIX=/speech/toolkits/kaldifeat/build
 7. Follow the steps here to run the server with a pretrained model https://k2-fsa.github.io/sherpa/python/streaming_asr/conformer/conformer_rnnt_for_English/index.html
 
 
-- **Method 2** I tried this method which also worked but have not used it with a model
-9. Specify cudnn path and run cmake
+- **Method 2** If you want to use sherpa in command line
+3. Specify cudnn path and run cmake
 
 ```
 CUDNN_LIBRARY_PATH=/usr/local/cuda-11.3/lib64
 CUDNN_INCLUDE_PATH=/usr/local/cuda-11.3/include
 ```
 
+4. run cmake and then make
+```
 cmake  -DCMAKE_BUILD_TYPE=Release  -DCMAKE_INSTALL_PREFIX=$HOME/software/sherpa  
 -DCMAKE_CUDA_COMPILER=$(which nvcc)  -DPYTHON_EXECUTABLE=$(which python)  -DCUDNN_LIBRARY_PATH=$CUDNN_LIBRARY_PATH/libcudnn.so  -DCUDNN_INCLUDE_PATH=$CUDNN_INCLUDE_PATH  ..
 
 make -j6 install/strip
-
-export PATH=$HOME/software/sherpa/bin:$PATH
+```
+5. export the path to sherpa
+`export PATH=$HOME/software/sherpa/bin:$PATH`
 ```
 4. To check the installation run 
 `sherpa-version`
 
 The output will be somethig similar to below
+```
 
 ```
 sherpa version: 1.1
