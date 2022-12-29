@@ -7,12 +7,9 @@
 ### Install GCC
 - Check this link for which GCC should be installed before installing Cuda
 https://stackoverflow.com/questions/6622454/cuda-incompatible-with-my-gcc-version
-
 - This tutorial also was helpful to install gcc and set the correct version
 https://linuxize.com/post/how-to-install-gcc-on-ubuntu-20-04/
-
 - check that you installed the required gcc version by running `gcc --version`
-
 
 ### install Cuda toolkit and Cudnn
 - I tried cuda toolkit 10.2, gcc 6.3 for older Ubuntu 18.04, and Cuda 11.3, gcc 9.4 for Ubuntu 20 but others might work as well.
@@ -33,8 +30,64 @@ Built on Mon_May__3_19:15:13_PDT_2021
 Cuda compilation tools, release 11.3, V11.3.109
 Build cuda_11.3.r11.3/compiler.29920130_0
 ```
+**Note:** when installing cuda toolkit it might happens that the system will pull the latest drivers (cuda 12) although you intended to install cuda 11.3. Double check that the folder  /usr/local/cuda-11.3 was created if not then try installing it again but without drivers.
+In my case I got cuda drivers 12 and had to manually install 11.3 
 
-###
+### Install pytorch 
+First I show my installed pytorch env details
+```
+Collecting environment information...
+PyTorch version: 1.12.0
+Is debug build: False
+CUDA used to build PyTorch: 11.3
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 20.04.5 LTS (x86_64)
+GCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+Clang version: Could not collect
+CMake version: version 3.18.0
+Libc version: glibc-2.31
+
+Python version: 3.8.15 (default, Nov 24 2022, 15:19:38)  [GCC 11.2.0] (64-bit runtime)
+Python platform: Linux-5.15.0-56-generic-x86_64-with-glibc2.17
+Is CUDA available: True
+CUDA runtime version: 11.3.109
+GPU models and configuration: GPU 0: NVIDIA GeForce RTX 3080 Ti
+Nvidia driver version: 525.60.13
+cuDNN version: Probably one of the following:
+/usr/lib/x86_64-linux-gnu/libcudnn.so.8.7.0
+/usr/lib/x86_64-linux-gnu/libcudnn_adv_infer.so.8.7.0
+/usr/lib/x86_64-linux-gnu/libcudnn_adv_train.so.8.7.0
+/usr/lib/x86_64-linux-gnu/libcudnn_cnn_infer.so.8.7.0
+/usr/lib/x86_64-linux-gnu/libcudnn_cnn_train.so.8.7.0
+/usr/lib/x86_64-linux-gnu/libcudnn_ops_infer.so.8.7.0
+/usr/lib/x86_64-linux-gnu/libcudnn_ops_train.so.8.7.0
+/usr/local/cuda-11.3/targets/x86_64-linux/lib/libcudnn.so.8.7.0
+/usr/local/cuda-11.3/targets/x86_64-linux/lib/libcudnn_adv_infer.so.8.7.0
+/usr/local/cuda-11.3/targets/x86_64-linux/lib/libcudnn_adv_train.so.8.7.0
+/usr/local/cuda-11.3/targets/x86_64-linux/lib/libcudnn_cnn_infer.so.8.7.0
+/usr/local/cuda-11.3/targets/x86_64-linux/lib/libcudnn_cnn_train.so.8.7.0
+/usr/local/cuda-11.3/targets/x86_64-linux/lib/libcudnn_ops_infer.so.8.7.0
+/usr/local/cuda-11.3/targets/x86_64-linux/lib/libcudnn_ops_train.so.8.7.0
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: True
+
+Versions of relevant libraries:
+[pip3] numpy==1.22.4
+[pip3] torch==1.12.0+cu113
+[pip3] torchaudio==0.12.0+cu113
+[pip3] torchvision==0.13.0+cu113
+[conda] blas                      1.0                         mkl  
+[conda] cudatoolkit               11.3.1               h2bc3f7f_2  
+[conda] mkl                       2022.1.0           hc2b9512_224  
+[conda] numpy                     1.22.4                   pypi_0    pypi
+[conda] pytorch                   1.12.0          py3.8_cuda11.3_cudnn8.3.2_0    pytorch
+[conda] pytorch-mutex             1.0                        cuda    pytorch
+[conda] torch                     1.12.0+cu113             pypi_0    pypi
+[conda] torchaudio                0.12.0+cu113             pypi_0    pypi
+[conda] torchvision               0.13.0+cu113             pypi_0    pypi
+```
 
 
 
