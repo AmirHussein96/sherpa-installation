@@ -30,11 +30,36 @@ Built on Mon_May__3_19:15:13_PDT_2021
 Cuda compilation tools, release 11.3, V11.3.109
 Build cuda_11.3.r11.3/compiler.29920130_0
 ```
-**Note:** when installing cuda toolkit it might happens that the system will pull the latest drivers (cuda 12) although you intended to install cuda 11.3. Double check that the folder  /usr/local/cuda-11.3 was created if not then try installing it again but without drivers.
-In my case I got cuda drivers 12 and had to manually install 11.3 
+**Note:** when installing cuda toolkit it might happens that the system will pull and install the latest drivers (in my case cuda 12) although you intended to install cuda 11.3. Double check that the folder  /usr/local/cuda-11.3 was created if not then try installing it again but without drivers.
+when I run nvidia-smi:
+```
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 525.60.13    Driver Version: 525.60.13    CUDA Version: 12.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  On   | 00000000:0A:00.0  On |                  N/A |
+| 47%   30C    P8    28W / 350W |   2333MiB / 12288MiB |      9%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      1206      G   /usr/lib/xorg/Xorg                153MiB |
+|    0   N/A  N/A      1511      G   /usr/bin/gnome-shell               31MiB |
+|    0   N/A  N/A      2822      G   /usr/lib/firefox/firefox          134MiB |
+|    0   N/A  N/A     11610      G   ...veSuggestionsOnlyOnDemand       79MiB |
+|    0   N/A  N/A     47844      C   python3                          1928MiB |
++-----------------------------------------------------------------------------+
+```
 
 ### Install pytorch 
-First I show my installed pytorch env details
+- First I show details of my installed pytorch env 
 ```
 Collecting environment information...
 PyTorch version: 1.12.0
@@ -91,7 +116,74 @@ Versions of relevant libraries:
 
 
 
-Note
+### install lhotse
+- You can check the details here https://lhotse.readthedocs.io/en/latest/getting-started.html#installation
+- This worked for me `pip install git+https://github.com/lhotse-speech/lhotse`
+
+
+### Install k2
+- clone the repo
+```
+git clone https://github.com/k2-fsa/k2.git
+cd k2
+mkdir build_debug
+cd build_debug
+```
+
+- Define pointers to cuda
+```
+CUDNN_LIBRARY_PATH=/usr/local/cuda-11.3/lib64
+CUDNN_INCLUDE_PATH=/usr/local/cuda-11.3/include
+```
+- run cmake
+```
+cmake\
+ -DCMAKE_BUILD_TYPE=Debug \
+ -DCMAKE_CUDA_COMPILER=$(which nvcc) \
+ -DPYTHON_EXECUTABLE=$(which python) \
+ -DCUDNN_LIBRARY_PATH=$CUDNN_LIBRARY_PATH/libcudnn.so \
+ -DCUDNN_INCLUDE_PATH=$CUDNN_INCLUDE_PATH \
+ ..
+```
+- run `make -j8`
+- add k2 to python path
+
+```
+K2_ROOT=/speech/toolkits/k2
+export PYTHONPATH=$K2_ROOT/k2/python:$PYTHONPATH
+export PYTHONPATH=$K2_ROOT/build_debug/lib:$PYTHONPATH
+```
+- to check k2 installation run `python -m k2.version` 
+
+### Install kaldifeat
+- clone the repo
+```
+git clone https://github.com/csukuangfj/kaldifeat
+cd kaldifeat
+mkdir build
+cd build
+```
+- run cmake
+```
+cmake\
+ -DCMAKE_BUILD_TYPE=Debug \
+ -DCMAKE_CUDA_COMPILER=$(which nvcc) \
+ -DPYTHON_EXECUTABLE=$(which python) \
+ -DCUDNN_LIBRARY_PATH=$CUDNN_LIBRARY_PATH/libcudnn.so \
+ -DCUDNN_INCLUDE_PATH=$CUDNN_INCLUDE_PATH \
+ ..
+ ```
+ 
+- run `make -j8`
+- add kaldifeat to python path
+```
+kfeat=/speech/toolkits/kaldifeat
+export PYTHONPATH=$kfeat/kaldifeat/python:$PYTHONPATH
+export PYTHONPATH=$kfeat/build/lib:$PYTHONPATH
+```
+
+### Install sherpa
+
 sherpa installation steps:
 1- export k2 and kaldifeat path
 ```
