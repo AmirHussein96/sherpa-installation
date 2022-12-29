@@ -1,4 +1,4 @@
-# K2/icefall/sherpa installation
+# K2/sherpa installation
 
 ### Prerequisite:
 - Please install conda or any other environment management system 
